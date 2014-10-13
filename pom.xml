@@ -2,7 +2,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.github.thymeleaf.jawr</groupId>
+	<groupId>com.github.dtrunk90</groupId>
 	<artifactId>thymeleaf-jawr-extension</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 

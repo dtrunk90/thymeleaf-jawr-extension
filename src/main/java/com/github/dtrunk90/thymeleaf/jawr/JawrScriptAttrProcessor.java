@@ -1,4 +1,4 @@
-package com.github.thymeleaf.jawr;
+package com.github.dtrunk90.thymeleaf.jawr;
 
 import net.jawr.web.JawrConstant;
 import net.jawr.web.resource.bundle.renderer.BundleRenderer;

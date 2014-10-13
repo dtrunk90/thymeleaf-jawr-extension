@@ -1,4 +1,4 @@
-package com.github.thymeleaf.jawr;
+package com.github.dtrunk90.thymeleaf.jawr;
 
 import org.thymeleaf.Arguments;
 import org.thymeleaf.dom.Element;

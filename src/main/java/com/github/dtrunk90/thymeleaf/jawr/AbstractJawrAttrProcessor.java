@@ -1,4 +1,4 @@
-package com.github.thymeleaf.jawr;
+package com.github.dtrunk90.thymeleaf.jawr;
 
 import java.io.IOException;
 import java.io.StringWriter;
