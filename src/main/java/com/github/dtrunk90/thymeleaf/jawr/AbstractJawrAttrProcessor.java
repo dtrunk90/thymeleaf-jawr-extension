@@ -40,7 +40,10 @@ public abstract class AbstractJawrAttrProcessor extends AbstractUnescapedTextChi
 	@Override
 	protected final String getText(Arguments arguments, Element element, String attributeName) {
 		try {
-			return getRenderedString(element.getAttributeValue(attributeName), (WebContext) arguments.getContext());
+			Configuration configuration = arguments.getConfiguration();
+			IStandardExpressionParser parser = StandardExpressions.getExpressionParser(configuration);
+			IStandardExpression expression = parser.parseExpression(configuration, arguments, element.getAttributeValue(attributeName));
+			return getRenderedString((String) expression.execute(configuration, arguments), (WebContext) arguments.getContext());
 		} catch (IOException e) {}
 
 		return "";
