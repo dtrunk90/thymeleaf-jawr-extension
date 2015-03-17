@@ -4,7 +4,7 @@
 
 	<groupId>com.github.dtrunk90</groupId>
 	<artifactId>thymeleaf-jawr-extension</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3-SNAPSHOT</version>
 
 	<name>Thymeleaf JAWR Extension</name>
 	<url>https://github.com/dtrunk90/thymeleaf-jawr-extension</url>
