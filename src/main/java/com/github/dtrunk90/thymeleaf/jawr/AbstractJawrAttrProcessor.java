@@ -75,7 +75,7 @@ public abstract class AbstractJawrAttrProcessor extends AbstractUnescapedTextChi
 		StringWriter out = new StringWriter();
 
 		BundleRenderer renderer = createRenderer(webContext);
-		renderer.renderBundleLinks(attributeValue, getRendererContext(webContext, renderer), out);
+		renderer.renderBundleLinks(attributeValue, getBundleRendererContext(webContext, renderer), out);
 		out.flush();
 
 		return out.toString();
