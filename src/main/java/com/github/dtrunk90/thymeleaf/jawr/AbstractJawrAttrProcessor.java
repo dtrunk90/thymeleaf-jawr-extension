@@ -3,6 +3,10 @@ package com.github.dtrunk90.thymeleaf.jawr;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import javax.servlet.DispatcherType;
+import javax.servlet.http.HttpServletRequest;
+
+import net.jawr.web.JawrConstant;
 import net.jawr.web.resource.bundle.handler.ResourceBundlesHandler;
 import net.jawr.web.resource.bundle.renderer.BundleRenderer;
 import net.jawr.web.resource.bundle.renderer.BundleRendererContext;
@@ -31,6 +35,11 @@ import org.thymeleaf.standard.expression.StandardExpressions;
  */
 public abstract class AbstractJawrAttrProcessor extends AbstractUnescapedTextChildModifierAttrProcessor {
 	private static final int PRECEDENCE = 900;
+
+	private static final String BUNDLE_RENDERER_CONTEXT_ATTR_PREFIX = "net.jawr.web.resource.renderer.BUNDLE_RENDERER_CONTEXT";
+	private static final String[] BUNDLE_RENDERER_CONTEXT_TYPES = { JawrConstant.CSS_TYPE, JawrConstant.JS_TYPE };
+
+	private boolean removedBundleRendererContextAttributes = false;
 
 	public AbstractJawrAttrProcessor(String attributeName, String elementNameFilter) {
 		super(new AttributeNameProcessorMatcher(attributeName, elementNameFilter));
@@ -72,8 +81,23 @@ public abstract class AbstractJawrAttrProcessor extends AbstractUnescapedTextChi
 		return out.toString();
 	}
 
-	private BundleRendererContext getRendererContext(WebContext webContext, BundleRenderer renderer) {
-		return RendererRequestUtils.getBundleRendererContext(webContext.getHttpServletRequest(), renderer);
+	private BundleRendererContext getBundleRendererContext(WebContext webContext, BundleRenderer renderer) {
+		HttpServletRequest request = webContext.getHttpServletRequest();
+
+		if (!removedBundleRendererContextAttributes && !DispatcherType.REQUEST.equals(request.getDispatcherType())) {
+			removeBundleRendererContextAttributes(request);
+		}
+
+		return RendererRequestUtils.getBundleRendererContext(request, renderer);
+	}
+
+	// https://java.net/jira/browse/JAWR-331
+	private void removeBundleRendererContextAttributes(HttpServletRequest request) {
+		for (String bundleRendererContextType : BUNDLE_RENDERER_CONTEXT_TYPES) {
+			request.removeAttribute(BUNDLE_RENDERER_CONTEXT_ATTR_PREFIX + bundleRendererContextType);
+		}
+
+		removedBundleRendererContextAttributes = true;
 	}
 
 	protected abstract BundleRenderer createRenderer(WebContext webContext);
