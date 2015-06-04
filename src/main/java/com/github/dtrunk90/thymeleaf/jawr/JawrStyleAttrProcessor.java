@@ -26,7 +26,7 @@ public class JawrStyleAttrProcessor extends AbstractJawrAttrProcessor {
 	@Override
 	protected final BundleRenderer createRenderer(WebContext webContext) {
 		CSSHTMLBundleLinkRenderer renderer = new CSSHTMLBundleLinkRenderer();
-		renderer.init(getResourceBundleHandlerFromContext(webContext, JawrConstant.CSS_CONTEXT_ATTRIBUTE), false, MEDIA, false, false, null);
+		renderer.init(getResourceBundleHandlerFromContext(webContext, JawrConstant.CSS_CONTEXT_ATTRIBUTE), null, MEDIA, false, false, null);
 		return renderer;
 	}
 }

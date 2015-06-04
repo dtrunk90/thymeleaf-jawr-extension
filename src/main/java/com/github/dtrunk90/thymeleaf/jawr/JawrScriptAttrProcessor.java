@@ -25,7 +25,7 @@ public class JawrScriptAttrProcessor extends AbstractJawrAttrProcessor {
 	@Override
 	protected final BundleRenderer createRenderer(WebContext webContext) {
 		JavascriptHTMLBundleLinkRenderer renderer = new JavascriptHTMLBundleLinkRenderer();
-		renderer.init(getResourceBundleHandlerFromContext(webContext, JawrConstant.JS_CONTEXT_ATTRIBUTE), false);
+		renderer.init(getResourceBundleHandlerFromContext(webContext, JawrConstant.JS_CONTEXT_ATTRIBUTE), null);
 		return renderer;
 	}
 }
