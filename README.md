@@ -12,7 +12,7 @@ To avoid IDE warnings you can add the namespace as follows:
 
 Javascript attributes:
 | Attribute name | Type    | Purpose                                                            | Default value |
-|:---------------|:--------|:-------------------------------------------------------------------|:--------------|
+| :------------- | :------ | :----------------------------------------------------------------- | :------------ |
 | src            | String  | The bundle path.                                                   |               |
 | useRandomParam | Boolean | The flag indicating if we must use random parameter in debug mode. | true          |
 | async          | Boolean | The async flag.                                                    | false         |
@@ -20,7 +20,7 @@ Javascript attributes:
 
 CSS attributes:
 | Attribute name   | Type    | Purpose                                                                             | Default value |
-|:-----------------|:--------|:------------------------------------------------------------------------------------|:--------------|
+| :--------------- | :------ | :---------------------------------------------------------------------------------- | :------------ |
 | href             | String  | The bundle path.                                                                    |               |
 | media            | String  | The media attribute of the stylesheet.                                              |               |
 | useRandomParam   | Boolean | The flag indicating if we must use random parameter in debug mode.                  | true          |
