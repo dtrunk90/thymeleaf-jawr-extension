@@ -7,17 +7,19 @@ import java.util.Set;
 import org.thymeleaf.dialect.AbstractXHTMLEnabledDialect;
 import org.thymeleaf.processor.IProcessor;
 
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrAlternateAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrAsyncAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrCSSElementSubstitutionAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrDeferAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrDisplayAlternateAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrHrefAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrJavascriptElementSubstitutionAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrMediaAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrSrcAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrTitleAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrUseRandomParamAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrCssElementSubstitutionAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrImgElementSubstitutionAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrJsElementSubstitutionAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrAlternateAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrDisplayAlternateAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrHrefAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrMediaAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrTitleAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.img.JawrBase64AttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrAsyncAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrDeferAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared.JawrSrcAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared.JawrUseRandomParamAttrProcessor;
 
 public class JawrDialect extends AbstractXHTMLEnabledDialect {
 	public static final String REQUEST_ATTR_NAME = JawrDialect.class.getName();
@@ -31,21 +33,26 @@ public class JawrDialect extends AbstractXHTMLEnabledDialect {
 	@Override
 	public Set<IProcessor> getProcessors() {
 		return new HashSet<IProcessor>(Arrays.asList(
-				/* Common attributes */
+				/* Shared attributes */
+				new JawrSrcAttrProcessor(),
 				new JawrUseRandomParamAttrProcessor(),
 
 				/* Javascript attributes */
-				new JawrSrcAttrProcessor(),
 				new JawrAsyncAttrProcessor(),
 				new JawrDeferAttrProcessor(),
-				new JawrJavascriptElementSubstitutionAttrProcessor(),
+				new JawrJsElementSubstitutionAttrProcessor("script"),
 
 				/* CSS attributes */
+				new JawrAlternateAttrProcessor(),
+				new JawrDisplayAlternateAttrProcessor(),
 				new JawrHrefAttrProcessor(),
 				new JawrMediaAttrProcessor(),
-				new JawrAlternateAttrProcessor(),
 				new JawrTitleAttrProcessor(),
-				new JawrDisplayAlternateAttrProcessor(),
-				new JawrCSSElementSubstitutionAttrProcessor()));
+				new JawrCssElementSubstitutionAttrProcessor("link"),
+
+				/* Image attributes */
+				new JawrBase64AttrProcessor(),
+				new JawrImgElementSubstitutionAttrProcessor("img"),
+				new JawrImgElementSubstitutionAttrProcessor("input")));
 	}
 }

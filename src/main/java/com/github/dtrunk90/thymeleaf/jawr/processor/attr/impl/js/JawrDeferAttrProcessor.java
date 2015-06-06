@@ -1,4 +1,4 @@
-package com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl;
+package com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js;
 
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.AbstractJawrAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.Attr;

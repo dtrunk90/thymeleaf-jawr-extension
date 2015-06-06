@@ -1,4 +1,7 @@
-package com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl;
+package com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared;
+
+import org.thymeleaf.Arguments;
+import org.thymeleaf.dom.Element;
 
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.AbstractJawrAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.Attr;
@@ -13,5 +16,10 @@ public class JawrSrcAttrProcessor extends AbstractJawrAttrProcessor {
 	@Override
 	protected Attr getAttr() {
 		return Attr.SRC;
+	}
+
+	@Override
+	protected boolean getRemoveAttribute(Arguments arguments, Element element, String attributeName) {
+		return false;
 	}
 }

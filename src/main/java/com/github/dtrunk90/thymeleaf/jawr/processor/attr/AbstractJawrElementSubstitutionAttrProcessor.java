@@ -1,15 +1,9 @@
 package com.github.dtrunk90.thymeleaf.jawr.processor.attr;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-import net.jawr.web.resource.bundle.handler.ResourceBundlesHandler;
-import net.jawr.web.resource.bundle.renderer.BundleRenderer;
-import net.jawr.web.resource.bundle.renderer.BundleRendererContext;
-import net.jawr.web.servlet.RendererRequestUtils;
 
 import org.thymeleaf.Arguments;
 import org.thymeleaf.context.WebContext;
@@ -40,18 +34,11 @@ public abstract class AbstractJawrElementSubstitutionAttrProcessor extends Abstr
 		HttpServletRequest request = context.getHttpServletRequest();
 		Map<Attr, Object> attrMap = ((Map<Element, Map<Attr, Object>>) request.getAttribute(JawrDialect.REQUEST_ATTR_NAME)).get(element);
 
-		StringWriter out = new StringWriter();
-
 		try {
-			BundleRenderer renderer = createRenderer(context, attrMap);
-			BundleRendererContext rendererContext = RendererRequestUtils.getBundleRendererContext(request, renderer);
-			renderer.renderBundleLinks((String) getAttributeValue(attrMap), rendererContext, out);
-			out.flush();
+			return render(arguments, element, attrMap);
 		} catch (IOException e) {
 			throw new TemplateProcessingException("Error during template processing", e);
 		}
-
-		return out.toString();
 	}
 
 	@Override
@@ -59,15 +46,14 @@ public abstract class AbstractJawrElementSubstitutionAttrProcessor extends Abstr
 		return true;
 	}
 
-	protected ResourceBundlesHandler getResourceBundleHandlerFromContext(WebContext webContext, String attributeName) {
-		Object attributeValue = webContext.getServletContext().getAttribute(attributeName);
+	protected Object getHandlerFromContext(WebContext context, String attributeName) {
+		Object attributeValue = context.getServletContext().getAttribute(attributeName);
 		if (attributeValue == null) {
-			throw new IllegalStateException("ResourceBundlesHandler not present in servlet context. Initialization of Jawr either failed or never occurred.");
+			throw new TemplateProcessingException("Handler \"" + attributeName + "\" not present in servlet context. Initialization of Jawr either failed or never occurred.");
 		}
 
-		return (ResourceBundlesHandler) attributeValue;
+		return attributeValue;
 	}
 
-	protected abstract BundleRenderer createRenderer(WebContext webContext, Map<Attr, Object> attrMap);
-	protected abstract Object getAttributeValue(Map<Attr, Object> attrMap);
+	protected abstract String render(Arguments arguments, Element element, Map<Attr, Object> attrMap) throws IOException;
 }

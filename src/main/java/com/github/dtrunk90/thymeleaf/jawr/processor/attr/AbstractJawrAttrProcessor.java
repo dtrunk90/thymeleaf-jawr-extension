@@ -59,7 +59,16 @@ public abstract class AbstractJawrAttrProcessor extends AbstractAttrProcessor {
 		} catch (TemplateProcessingException e) {}
 
 		attrMap.put(getAttr(), attributeValue);
+
+		if (getRemoveAttribute(arguments, element, attributeName)) {
+			element.removeAttribute(attributeName);
+		}
+
 		return ProcessorResult.OK;
+	}
+
+	protected boolean getRemoveAttribute(Arguments arguments, Element element, String attributeName) {
+		return true;
 	}
 
 	protected abstract Attr getAttr();

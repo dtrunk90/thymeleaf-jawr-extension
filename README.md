@@ -30,6 +30,15 @@ CSS attributes:
 | alternate        | Boolean | This flag is used to render link as an alternate style.                             | false         |
 | displayAlternate | Boolean | This flag is used to render the skin variants of the CSS bundle as alternate style. | false         |
 
+Image attributes:
+
+| Attribute name   | Type    | Purpose                                                                             | Default value |
+| :--------------- | :------ | :---------------------------------------------------------------------------------- | :------------ |
+| src              | String  | The bundle path.                                                                    |               |
+| base64           | Boolean | This flag is used to generate base64 encoded image                                  | false         |
+
+It's important to note that Jawr will generate the base64 encoded image for all browsers except IE6 and IE7, which doesn't handle base64 encoded image.
+
 Usage examples
 --------------
 
@@ -41,6 +50,16 @@ Javascript bundle:
 CSS bundle:
 ```html
 <link rel="stylesheet/less" type="text/css" href="main.less" jawr:href="/all.css" />
+```
+
+Image:
+```html
+<img src="../resources/img/dummy.png" alt="" jawr:src="/resources/img/dummy.png" />
+```
+
+Image input:
+```html
+<input type="image" src="../resources/img/dummy.png" jawr:src="/resources/img/dummy.png" />
 ```
 
 You can use expressions as well:
