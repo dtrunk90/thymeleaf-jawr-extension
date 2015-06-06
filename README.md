@@ -1,6 +1,14 @@
 Thymeleaf Jawr Dialect
 ======================
 
+```xml
+<dependency>
+	<groupId>com.github.dtrunk90</groupId>
+	<artifactId>thymeleaf-jawr-dialect</artifactId>
+	<version>1.1.0</version>
+</dependency>
+```
+
 Attributes
 ----------
 
