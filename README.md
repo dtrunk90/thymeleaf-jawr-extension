@@ -4,29 +4,29 @@ Thymeleaf Jawr Dialect
 Attributes
 ----------
 
-All attributes need to be prefixed by `jawr:`.\s\s
+All attributes need to be prefixed by `jawr:`.<br />
 To avoid IDE warnings you can add the namespace as follows:
 ```html
 <html xmlns:jawr="http://jawr.java.net" xmlns:th="http://www.thymeleaf.org"></html>
 ```
 
 Javascript attributes:
-| Attribute name 	| Type 		| Purpose 																				| Default value |
-|:------------------|:----------|:--------------------------------------------------------------------------------------|:--------------|
-| src 				| String 	| The bundle path. 																		|  				|
-| useRandomParam 	| Boolean 	| The flag indicating if we must use random parameter in debug mode. 					| true 			|
-| async 			| Boolean 	| The async flag. 																		| false 		|
-| defer 			| Boolean 	| The defer flag. 																		| false 		|
+| Attribute name | Type    | Purpose                                                            | Default value |
+|:---------------|:--------|:-------------------------------------------------------------------|:--------------|
+| src            | String  | The bundle path.                                                   |               |
+| useRandomParam | Boolean | The flag indicating if we must use random parameter in debug mode. | true          |
+| async          | Boolean | The async flag.                                                    | false         |
+| defer          | Boolean | The defer flag.                                                    | false         |
 
 CSS attributes:
-| Attribute name 	| Type 		| Purpose 																				| Default value |
-|:------------------|:----------|:--------------------------------------------------------------------------------------|:--------------|
-| href 				| String 	| The bundle path. 																		|  				|
-| media 			| String 	| The media attribute of the stylesheet. 												|  				|
-| useRandomParam 	| Boolean 	| The flag indicating if we must use random parameter in debug mode. 					| true 			|
-| alternate 		| Boolean 	| This flag is used to render link as an alternate style. 								| false 		|
-| title 			| String 	| The title to use for the style. 														| false 		|
-| displayAlternate 	| Boolean 	| This flag is used to render the skin variants of the CSS bundle as alternate style. 	| false 		|
+| Attribute name   | Type    | Purpose                                                                             | Default value |
+|:-----------------|:--------|:------------------------------------------------------------------------------------|:--------------|
+| href             | String  | The bundle path.                                                                    |               |
+| media            | String  | The media attribute of the stylesheet.                                              |               |
+| useRandomParam   | Boolean | The flag indicating if we must use random parameter in debug mode.                  | true          |
+| alternate        | Boolean | This flag is used to render link as an alternate style.                             | false         |
+| title            | String  | The title to use for the style.                                                     | false         |
+| displayAlternate | Boolean | This flag is used to render the skin variants of the CSS bundle as alternate style. | false         |
 
 Usage examples
 --------------
