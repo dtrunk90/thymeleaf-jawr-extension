@@ -25,9 +25,9 @@ CSS attributes:
 | :--------------- | :------ | :---------------------------------------------------------------------------------- | :------------ |
 | href             | String  | The bundle path.                                                                    |               |
 | media            | String  | The media attribute of the stylesheet.                                              |               |
+| title            | String  | The title to use for the style.                                                     |               |
 | useRandomParam   | Boolean | The flag indicating if we must use random parameter in debug mode.                  | true          |
 | alternate        | Boolean | This flag is used to render link as an alternate style.                             | false         |
-| title            | String  | The title to use for the style.                                                     | false         |
 | displayAlternate | Boolean | This flag is used to render the skin variants of the CSS bundle as alternate style. | false         |
 
 Usage examples
