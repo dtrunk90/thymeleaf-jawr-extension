@@ -11,6 +11,7 @@ To avoid IDE warnings you can add the namespace as follows:
 ```
 
 Javascript attributes:
+
 | Attribute name | Type    | Purpose                                                            | Default value |
 | :------------- | :------ | :----------------------------------------------------------------- | :------------ |
 | src            | String  | The bundle path.                                                   |               |
@@ -19,6 +20,7 @@ Javascript attributes:
 | defer          | Boolean | The defer flag.                                                    | false         |
 
 CSS attributes:
+
 | Attribute name   | Type    | Purpose                                                                             | Default value |
 | :--------------- | :------ | :---------------------------------------------------------------------------------- | :------------ |
 | href             | String  | The bundle path.                                                                    |               |
