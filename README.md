@@ -37,7 +37,7 @@ Image attributes:
 | src              | String  | The image path.                                                                     |               |
 | base64           | Boolean | This flag is used to generate base64 encoded image                                  | false         |
 
-It's important to note that Jawr will generate the base64 encoded image for all browsers except IE6 and IE7, which doesn't handle base64 encoded image.
+It's important to note that Jawr will generate the base64 encoded image for all browsers except IE6 and IE7, which doesn't handle base64 encoded images.
 
 Usage examples
 --------------
