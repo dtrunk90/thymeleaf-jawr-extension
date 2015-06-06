@@ -7,17 +7,17 @@ import java.util.Set;
 import org.thymeleaf.dialect.AbstractXHTMLEnabledDialect;
 import org.thymeleaf.processor.IProcessor;
 
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrCssElementSubstitutionAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrImgElementSubstitutionAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.JawrJsElementSubstitutionAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrAlternateAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrCssElementSubstitutionAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrDisplayAlternateAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrHrefAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrMediaAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrTitleAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.img.JawrBase64AttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.img.JawrImgElementSubstitutionAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrAsyncAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrDeferAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrJsElementSubstitutionAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared.JawrSrcAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared.JawrUseRandomParamAttrProcessor;
 

@@ -1,4 +1,4 @@
-package com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl;
+package com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.img;
 
 import java.io.IOException;
 import java.io.StringWriter;
