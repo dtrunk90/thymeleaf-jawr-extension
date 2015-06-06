@@ -1,10 +1,10 @@
-Thymeleaf Jawr Dialect
-======================
+Thymeleaf Jawr Extension
+========================
 
 ```xml
 <dependency>
 	<groupId>com.github.dtrunk90</groupId>
-	<artifactId>thymeleaf-jawr-dialect</artifactId>
+	<artifactId>thymeleaf-jawr-extension</artifactId>
 	<version>1.1.0</version>
 </dependency>
 ```
