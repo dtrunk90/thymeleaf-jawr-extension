@@ -1,58 +1,31 @@
 package com.github.dtrunk90.thymeleaf.jawr.dialect;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.thymeleaf.dialect.AbstractXHTMLEnabledDialect;
+import org.thymeleaf.dialect.AbstractProcessorDialect;
 import org.thymeleaf.processor.IProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.element.impl.JawrBinaryAttributeTagProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.element.impl.JawrCssAttributeTagProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.element.impl.JawrJsAttributeTagProcessor;
 
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrAlternateAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrCssElementSubstitutionAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrDisplayAlternateAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrHrefAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrMediaAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrTitleAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.img.JawrBase64AttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.img.JawrImgElementSubstitutionAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrAsyncAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrDeferAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrJsElementSubstitutionAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared.JawrSrcAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared.JawrUseRandomParamAttrProcessor;
-
-public class JawrDialect extends AbstractXHTMLEnabledDialect {
-	public static final String REQUEST_ATTR_NAME = JawrDialect.class.getName();
+public class JawrDialect extends AbstractProcessorDialect {
+	public static final String NAME = "Jawr";
 	public static final String PREFIX = "jawr";
+	public static final int PROCESSOR_PRECEDENCE = 2000;
 
-	@Override
-	public String getPrefix() {
-		return PREFIX;
+	public JawrDialect() {
+		super(NAME, PREFIX, PROCESSOR_PRECEDENCE);
 	}
 
 	@Override
-	public Set<IProcessor> getProcessors() {
-		return new HashSet<IProcessor>(Arrays.asList(
-				/* Shared attributes */
-				new JawrSrcAttrProcessor(),
-				new JawrUseRandomParamAttrProcessor(),
-
-				/* Javascript attributes */
-				new JawrAsyncAttrProcessor(),
-				new JawrDeferAttrProcessor(),
-				new JawrJsElementSubstitutionAttrProcessor("script"),
-
-				/* CSS attributes */
-				new JawrAlternateAttrProcessor(),
-				new JawrDisplayAlternateAttrProcessor(),
-				new JawrHrefAttrProcessor(),
-				new JawrMediaAttrProcessor(),
-				new JawrTitleAttrProcessor(),
-				new JawrCssElementSubstitutionAttrProcessor("link"),
-
-				/* Image attributes */
-				new JawrBase64AttrProcessor(),
-				new JawrImgElementSubstitutionAttrProcessor("img"),
-				new JawrImgElementSubstitutionAttrProcessor("input")));
+	public Set<IProcessor> getProcessors(String dialectPrefix) {
+		Set<IProcessor> processors = new LinkedHashSet<IProcessor>();
+		//processors.add(new StandardXmlNsTagProcessor(this, TemplateMode.HTML, dialectPrefix)); // TODO: check if necessary
+		processors.add(new JawrBinaryAttributeTagProcessor(this, "img"));
+		processors.add(new JawrBinaryAttributeTagProcessor(this, "input"));
+		processors.add(new JawrCssAttributeTagProcessor(this));
+		processors.add(new JawrJsAttributeTagProcessor(this));
+		return processors;
 	}
 }
