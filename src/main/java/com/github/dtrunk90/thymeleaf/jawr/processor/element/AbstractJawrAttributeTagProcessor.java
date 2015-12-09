@@ -77,7 +77,6 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 
 		attributes.put(attribute, expressionResult);
 
-
 		try {
 			structureHandler.replaceWith(render((IWebContext) context, tag, attributes), false);
 		} catch (IOException e) {

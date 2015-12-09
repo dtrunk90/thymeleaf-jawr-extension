@@ -1,7 +1,8 @@
 package com.github.dtrunk90.thymeleaf.jawr.dialect.test;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.jawr.web.JawrConstant;
@@ -16,17 +17,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
+import org.thymeleaf.dialect.IDialect;
+import org.thymeleaf.spring4.dialect.SpringStandardDialect;
+import org.thymeleaf.testing.templateengine.context.web.SpringWebProcessingContextBuilder;
 import org.thymeleaf.testing.templateengine.engine.TestExecutor;
 
 import com.github.dtrunk90.thymeleaf.jawr.dialect.JawrDialect;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader=AnnotationConfigContextLoader.class)
+@ContextConfiguration(loader=AnnotationConfigWebContextLoader.class)
 public class JawrDialectTest {
 	@Configuration
 	public static class ContextConfiguration {
@@ -67,9 +71,17 @@ public class JawrDialectTest {
 
 		@Bean
 		public TestExecutor testExecutor() {
+			List<IDialect> dialects = new ArrayList<IDialect>();
+			dialects.add(new SpringStandardDialect());
+			dialects.add(new JawrDialect());
+
+			SpringWebProcessingContextBuilder springPCBuilder = new SpringWebProcessingContextBuilder();
+			springPCBuilder.setApplicationContextConfigLocation(null);
+
 			TestExecutor executor = new TestExecutor();
-			//executor.setProcessingContextBuilder(new SpringWebProcessingContextBuilder());
-			executor.setDialects(Arrays.asList(new JawrDialect()));
+			executor.setProcessingContextBuilder(springPCBuilder);
+			executor.setDialects(dialects);
+
 			return executor;
 		}
 	}
@@ -77,7 +89,7 @@ public class JawrDialectTest {
 	@Autowired
 	private TestExecutor executor;
 
-	@Test
+	//@Test
 	public void testBinary() {
 		executor.execute("classpath:img.thtest");
 		Assert.assertTrue(executor.isAllOK());
@@ -95,7 +107,7 @@ public class JawrDialectTest {
 		executor.reset();
 	}
 
-	@Test
+	//@Test
 	public void testJs() {
 		executor.execute("classpath:js.thtest");
 		Assert.assertTrue(executor.isAllOK());
