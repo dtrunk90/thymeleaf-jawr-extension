@@ -5,6 +5,9 @@ import java.util.Set;
 
 import org.thymeleaf.dialect.AbstractProcessorDialect;
 import org.thymeleaf.processor.IProcessor;
+import org.thymeleaf.standard.processor.StandardXmlNsTagProcessor;
+import org.thymeleaf.templatemode.TemplateMode;
+
 import com.github.dtrunk90.thymeleaf.jawr.processor.element.impl.JawrBinaryAttributeTagProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.element.impl.JawrCssAttributeTagProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.element.impl.JawrJsAttributeTagProcessor;
@@ -21,7 +24,7 @@ public class JawrDialect extends AbstractProcessorDialect {
 	@Override
 	public Set<IProcessor> getProcessors(String dialectPrefix) {
 		Set<IProcessor> processors = new LinkedHashSet<IProcessor>();
-		//processors.add(new StandardXmlNsTagProcessor(this, TemplateMode.HTML, dialectPrefix)); // TODO: check if necessary
+		processors.add(new StandardXmlNsTagProcessor(this, TemplateMode.HTML, dialectPrefix));
 		processors.add(new JawrBinaryAttributeTagProcessor(this, "img"));
 		processors.add(new JawrBinaryAttributeTagProcessor(this, "input"));
 		processors.add(new JawrCssAttributeTagProcessor(this));

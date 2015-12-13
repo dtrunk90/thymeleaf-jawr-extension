@@ -4,33 +4,42 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import net.jawr.web.JawrConstant;
 import net.jawr.web.servlet.JawrSpringController;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.thymeleaf.dialect.IDialect;
 import org.thymeleaf.spring4.dialect.SpringStandardDialect;
-import org.thymeleaf.testing.templateengine.context.web.SpringWebProcessingContextBuilder;
+import org.thymeleaf.testing.templateengine.context.IProcessingContextBuilder;
 import org.thymeleaf.testing.templateengine.engine.TestExecutor;
+import org.thymeleaf.testing.templateengine.resolver.ITestableResolver;
 
 import com.github.dtrunk90.thymeleaf.jawr.dialect.JawrDialect;
+import com.github.dtrunk90.thymeleaf.jawr.dialect.test.context.JawrDialectProcessingContextBuilder;
+import com.github.dtrunk90.thymeleaf.jawr.dialect.test.resolver.JawrDialectTestableResolver;
 
 @WebAppConfiguration
+@ContextConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader=AnnotationConfigWebContextLoader.class)
 public class JawrDialectTest {
 	@Configuration
 	public static class ContextConfiguration {
@@ -47,7 +56,7 @@ public class JawrDialectTest {
 
 		private JawrSpringController jawrController(String type) {
 			JawrSpringController controller = new JawrSpringController();
-			controller.setConfigLocation("jawr.properties");
+			controller.setConfiguration(new Properties());
 			controller.setControllerMapping(JawrConstant.BINARY_TYPE.equals(type) ? "/res/bin" : "/res");
 			controller.setType(type);
 			return controller;
@@ -68,49 +77,44 @@ public class JawrDialectTest {
 		public JawrSpringController jawrJsController() {
 			return jawrController(JawrConstant.JS_TYPE);
 		}
-
-		@Bean
-		public TestExecutor testExecutor() {
-			List<IDialect> dialects = new ArrayList<IDialect>();
-			dialects.add(new SpringStandardDialect());
-			dialects.add(new JawrDialect());
-
-			SpringWebProcessingContextBuilder springPCBuilder = new SpringWebProcessingContextBuilder();
-			springPCBuilder.setApplicationContextConfigLocation(null);
-
-			TestExecutor executor = new TestExecutor();
-			executor.setProcessingContextBuilder(springPCBuilder);
-			executor.setDialects(dialects);
-
-			return executor;
-		}
 	}
 
 	@Autowired
+	private WebApplicationContext applicationContext;
+
+	@Autowired
+	private MockServletContext servletContext;
+
+	@Autowired
+	private MockHttpServletRequest request;
+
+	@Autowired
+	private MockHttpServletResponse response;
+
+	@Autowired
+	private ServletWebRequest webRequest;
+
 	private TestExecutor executor;
 
-	//@Test
-	public void testBinary() {
-		executor.execute("classpath:img.thtest");
-		Assert.assertTrue(executor.isAllOK());
-		executor.reset();
+	@Before
+	public void setUp() {
+		IProcessingContextBuilder processingContextBuilder = new JawrDialectProcessingContextBuilder(applicationContext, servletContext, request, response, webRequest);
 
-		executor.execute("classpath:input.thtest");
-		Assert.assertTrue(executor.isAllOK());
-		executor.reset();
+		ITestableResolver testableResolver = new JawrDialectTestableResolver();
+
+		List<IDialect> dialects = new ArrayList<IDialect>();
+		dialects.add(new SpringStandardDialect());
+		dialects.add(new JawrDialect());
+
+		executor = new TestExecutor();
+		executor.setProcessingContextBuilder(processingContextBuilder);
+		executor.setTestableResolver(testableResolver);
+		executor.setDialects(dialects);
 	}
 
 	@Test
-	public void testCss() {
-		executor.execute("classpath:css.thtest");
+	public void runTests() {
+		executor.execute("classpath:thtest");
 		Assert.assertTrue(executor.isAllOK());
-		executor.reset();
-	}
-
-	//@Test
-	public void testJs() {
-		executor.execute("classpath:js.thtest");
-		Assert.assertTrue(executor.isAllOK());
-		executor.reset();
 	}
 }

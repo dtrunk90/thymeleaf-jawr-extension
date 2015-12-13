@@ -1,0 +1,21 @@
+%TEMPLATE_MODE HTML
+# ------------------------------------------
+%JAWR
+jawr.js.bundle.test.id=/test.js
+jawr.js.bundle.test.mappings=
+# ------------------------------------------
+%INPUT
+<!DOCTYPE html>
+<html xmlns:jawr="http://jawr.java.net">
+	<head>
+		<script type="text/javascript" src="test.js" jawr:src="/test.js"></script>
+	</head>
+</html>
+# ------------------------------------------
+%OUTPUT 
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="/res/0/test.js"></script>
+	</head>
+</html>

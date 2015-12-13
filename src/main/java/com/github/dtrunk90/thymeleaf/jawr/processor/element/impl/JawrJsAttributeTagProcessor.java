@@ -38,9 +38,9 @@ public class JawrJsAttributeTagProcessor extends AbstractJawrAttributeTagProcess
 
 	@Override
 	protected String render(IWebContext context, IProcessableElementTag tag, Map<Attr, Object> attributes) throws IOException {
-		Boolean async = (Boolean) attributes.get("async");
-		Boolean defer = (Boolean) attributes.get("defer");
-		Boolean useRandomParam = (Boolean) attributes.get("useRandomParam");
+		Boolean async = (Boolean) attributes.get(Attr.ASYNC);
+		Boolean defer = (Boolean) attributes.get(Attr.DEFER);
+		Boolean useRandomParam = (Boolean) attributes.get(Attr.USE_RANDOM_PARAM);
 
 		HttpServletRequest request = context.getRequest();
 

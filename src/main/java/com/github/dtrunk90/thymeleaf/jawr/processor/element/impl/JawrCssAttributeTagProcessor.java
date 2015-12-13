@@ -44,8 +44,8 @@ public class JawrCssAttributeTagProcessor extends AbstractJawrAttributeTagProces
 		String title = (String) attributes.get(Attr.TITLE);
 
 		Boolean useRandomParam = (Boolean) attributes.get(Attr.USE_RANDOM_PARAM);
-		boolean alternate = (Boolean) attributes.get(Attr.ALTERNATE);
-		boolean displayAlternateStyles = (Boolean) attributes.get(Attr.DISPLAY_ALTERNATE);
+		Boolean alternate = (Boolean) attributes.get(Attr.ALTERNATE);
+		Boolean displayAlternateStyles = (Boolean) attributes.get(Attr.DISPLAY_ALTERNATE);
 
 		HttpServletRequest request = context.getRequest();
 
