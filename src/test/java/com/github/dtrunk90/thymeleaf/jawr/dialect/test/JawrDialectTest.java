@@ -1,8 +1,7 @@
 package com.github.dtrunk90.thymeleaf.jawr.dialect.test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -11,6 +10,7 @@ import net.jawr.web.servlet.JawrSpringController;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +27,9 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
-import org.thymeleaf.dialect.IDialect;
 import org.thymeleaf.spring4.dialect.SpringStandardDialect;
 import org.thymeleaf.testing.templateengine.context.IProcessingContextBuilder;
 import org.thymeleaf.testing.templateengine.engine.TestExecutor;
-import org.thymeleaf.testing.templateengine.resolver.ITestableResolver;
 
 import com.github.dtrunk90.thymeleaf.jawr.dialect.JawrDialect;
 import com.github.dtrunk90.thymeleaf.jawr.dialect.test.context.JawrDialectProcessingContextBuilder;
@@ -94,27 +92,37 @@ public class JawrDialectTest {
 	@Autowired
 	private ServletWebRequest webRequest;
 
-	private TestExecutor executor;
+	private static final TestExecutor executor = new TestExecutor();
+
+	@BeforeClass
+	public static void configureSequence() {
+		executor.setTestableResolver(new JawrDialectTestableResolver());
+		executor.setDialects(Arrays.asList(new SpringStandardDialect(), new JawrDialect()));
+	}
 
 	@Before
-	public void setUp() {
+	public void configureTest() {
 		IProcessingContextBuilder processingContextBuilder = new JawrDialectProcessingContextBuilder(applicationContext, servletContext, request, response, webRequest);
-
-		ITestableResolver testableResolver = new JawrDialectTestableResolver();
-
-		List<IDialect> dialects = new ArrayList<IDialect>();
-		dialects.add(new SpringStandardDialect());
-		dialects.add(new JawrDialect());
-
-		executor = new TestExecutor();
 		executor.setProcessingContextBuilder(processingContextBuilder);
-		executor.setTestableResolver(testableResolver);
-		executor.setDialects(dialects);
+
+		executor.reset();
 	}
 
 	@Test
-	public void runTests() {
-		executor.execute("classpath:thtest");
+	public void testBinary() {
+		executor.execute("classpath:thtest/binary");
+		Assert.assertTrue(executor.isAllOK());
+	}
+
+	@Test
+	public void testCss() {
+		executor.execute("classpath:thtest/css");
+		Assert.assertTrue(executor.isAllOK());
+	}
+
+	@Test
+	public void testJs() {
+		executor.execute("classpath:thtest/js");
 		Assert.assertTrue(executor.isAllOK());
 	}
 }

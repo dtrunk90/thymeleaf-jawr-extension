@@ -1,0 +1,15 @@
+%INPUT
+<!DOCTYPE html>
+<html xmlns:jawr="http://jawr.java.net">
+	<body>
+		<img src="test.png" alt="" jawr:src="test.png" />
+	</body>
+</html>
+# ------------------------------------------
+%OUTPUT 
+<!DOCTYPE html>
+<html>
+	<body>
+		<img src="/res/bin/test.png" alt="" />
+	</body>
+</html>

@@ -1,6 +1,8 @@
 package com.github.dtrunk90.thymeleaf.jawr.processor.element;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.thymeleaf.context.ITemplateContext;
@@ -26,14 +28,14 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 		ALTERNATE, ASYNC, BASE64, DEFER, DISPLAY_ALTERNATE, HREF, MEDIA, SRC, TITLE, USE_RANDOM_PARAM
 	}
 
+	private final Map<Attr, Object> optionalAttributes;
 	private final Attr attribute;
-	private final Map<Attr, Object> attributes;
 
 	protected AbstractJawrAttributeTagProcessor(IProcessorDialect dialect, String elementName, Attr attribute, int precedence, Map<Attr, Object> optionalAttributes) {
 		super(dialect, TemplateMode.HTML, JawrDialect.PREFIX, elementName, false, attribute.toString(), true, precedence, false);
 
+		this.optionalAttributes = Collections.unmodifiableMap(optionalAttributes);
 		this.attribute = attribute;
-		attributes = optionalAttributes;
 	}
 
 	@Override
@@ -42,12 +44,14 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 			throw new ConfigurationException("Thymeleaf execution context is not a web context. Jawr integration can only be used in web environments.");
 		}
 
+		Map<Attr, Object> attributes = new HashMap<Attr, Object>();
+
 		IStandardExpressionParser expressionParser = StandardExpressions.getExpressionParser(context.getConfiguration());
 		Object expressionResult = parseExpression(expressionParser, context, attributeValue);
 		tag.getAttributes().removeAttribute(attributeName);
 
 		try {
-			for (Map.Entry<Attr, Object> optionalAttribute : attributes.entrySet()) {
+			for (Map.Entry<Attr, Object> optionalAttribute : optionalAttributes.entrySet()) {
 				Object optionalExpressionResult = optionalAttribute.getValue();
 
 				AttributeDefinition optionalAttributeDefinition = tag.getAttributes().getAttributeDefinition(JawrDialect.PREFIX, optionalAttribute.getKey().toString());
