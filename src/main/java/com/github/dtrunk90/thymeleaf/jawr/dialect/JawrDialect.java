@@ -24,11 +24,11 @@ public class JawrDialect extends AbstractProcessorDialect {
 	@Override
 	public Set<IProcessor> getProcessors(String dialectPrefix) {
 		Set<IProcessor> processors = new LinkedHashSet<IProcessor>();
-		processors.add(new StandardXmlNsTagProcessor(this, TemplateMode.HTML, dialectPrefix));
-		processors.add(new JawrBinaryAttributeTagProcessor(this, "img"));
-		processors.add(new JawrBinaryAttributeTagProcessor(this, "input"));
-		processors.add(new JawrCssAttributeTagProcessor(this));
-		processors.add(new JawrJsAttributeTagProcessor(this));
+		processors.add(new StandardXmlNsTagProcessor(TemplateMode.HTML, dialectPrefix));
+		processors.add(new JawrBinaryAttributeTagProcessor("img"));
+		processors.add(new JawrBinaryAttributeTagProcessor("input"));
+		processors.add(new JawrCssAttributeTagProcessor());
+		processors.add(new JawrJsAttributeTagProcessor());
 		return processors;
 	}
 }

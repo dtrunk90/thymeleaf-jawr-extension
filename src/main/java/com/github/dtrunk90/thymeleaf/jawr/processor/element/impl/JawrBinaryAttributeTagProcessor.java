@@ -14,10 +14,12 @@ import net.jawr.web.resource.bundle.renderer.RendererFactory;
 import net.jawr.web.resource.bundle.renderer.image.ImgRenderer;
 import net.jawr.web.taglib.ImageTagUtils;
 
+import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.dialect.IProcessorDialect;
 import org.thymeleaf.engine.AttributeName;
 import org.thymeleaf.model.IProcessableElementTag;
+import org.thymeleaf.processor.element.IElementTagStructureHandler;
 
 import com.github.dtrunk90.thymeleaf.jawr.processor.element.AbstractJawrAttributeTagProcessor;
 
@@ -30,8 +32,8 @@ public class JawrBinaryAttributeTagProcessor extends AbstractJawrAttributeTagPro
 		put(Attr.BASE64, false);
 	}};
 
-	public JawrBinaryAttributeTagProcessor(IProcessorDialect dialect, String elementName) {
-		super(dialect, elementName, ATTRIBUTE, PRECEDENCE, OPTIONAL_ATTRIBUTES);
+	public JawrBinaryAttributeTagProcessor(String elementName) {
+		super(elementName, ATTRIBUTE, PRECEDENCE, OPTIONAL_ATTRIBUTES);
 	}
 
 	@Override

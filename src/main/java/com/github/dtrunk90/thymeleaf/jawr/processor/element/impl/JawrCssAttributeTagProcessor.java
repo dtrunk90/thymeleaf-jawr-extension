@@ -34,8 +34,8 @@ public class JawrCssAttributeTagProcessor extends AbstractJawrAttributeTagProces
 		put(Attr.USE_RANDOM_PARAM, true);
 	}};
 
-	public JawrCssAttributeTagProcessor(IProcessorDialect dialect) {
-		super(dialect, ELEMENT, ATTRIBUTE, PRECEDENCE, OPTIONAL_ATTRIBUTES);
+	public JawrCssAttributeTagProcessor() {
+		super(ELEMENT, ATTRIBUTE, PRECEDENCE, OPTIONAL_ATTRIBUTES);
 	}
 
 	@Override

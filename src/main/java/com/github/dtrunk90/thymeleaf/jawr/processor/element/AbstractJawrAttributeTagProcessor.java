@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.context.IWebContext;
-import org.thymeleaf.dialect.IProcessorDialect;
 import org.thymeleaf.engine.AttributeDefinition;
 import org.thymeleaf.engine.AttributeName;
 import org.thymeleaf.exceptions.ConfigurationException;
@@ -25,21 +24,21 @@ import com.github.dtrunk90.thymeleaf.jawr.dialect.JawrDialect;
 
 public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttributeTagProcessor {
 	public static enum Attr {
-		ALTERNATE, ASYNC, BASE64, DEFER, DISPLAY_ALTERNATE, HREF, MEDIA, SRC, TITLE, USE_RANDOM_PARAM
+		ALTERNATE, ASYNC, BASE64, DEFER, DISPLAY_ALTERNATE, HREF, MEDIA, SRC, TITLE, TYPE, USE_RANDOM_PARAM
 	}
 
 	private final Map<Attr, Object> optionalAttributes;
 	private final Attr attribute;
 
-	protected AbstractJawrAttributeTagProcessor(IProcessorDialect dialect, String elementName, Attr attribute, int precedence, Map<Attr, Object> optionalAttributes) {
-		super(dialect, TemplateMode.HTML, JawrDialect.PREFIX, elementName, false, attribute.toString(), true, precedence, false);
+	protected AbstractJawrAttributeTagProcessor(String elementName, Attr attribute, int precedence, Map<Attr, Object> optionalAttributes) {
+		super(TemplateMode.HTML, JawrDialect.PREFIX, elementName, false, attribute.toString(), true, precedence, false);
 
 		this.optionalAttributes = Collections.unmodifiableMap(optionalAttributes);
 		this.attribute = attribute;
 	}
 
 	@Override
-	protected void doProcess(ITemplateContext context, IProcessableElementTag tag, AttributeName attributeName, String attributeValue, String attributeTemplateName, int attributeLine, int attributeCol, IElementTagStructureHandler structureHandler) {
+	protected void doProcess(ITemplateContext context, IProcessableElementTag tag, AttributeName attributeName, String attributeValue, IElementTagStructureHandler structureHandler) {
 		if (!(context instanceof IWebContext)) {
 			throw new ConfigurationException("Thymeleaf execution context is not a web context. Jawr integration can only be used in web environments.");
 		}
@@ -50,6 +49,9 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 		Object expressionResult = parseExpression(expressionParser, context, attributeValue);
 		tag.getAttributes().removeAttribute(attributeName);
 
+		int line = 0;
+		int col = 0;
+
 		try {
 			for (Map.Entry<Attr, Object> optionalAttribute : optionalAttributes.entrySet()) {
 				Object optionalExpressionResult = optionalAttribute.getValue();
@@ -58,8 +60,8 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 				if (optionalAttributeDefinition != null) {
 					attributeName = optionalAttributeDefinition.getAttributeName();
 					attributeValue = EscapedAttributeUtils.unescapeAttribute(context.getTemplateMode(), tag.getAttributes().getValue(attributeName));
-					attributeLine = tag.getAttributes().getLine(attributeName);
-					attributeCol = tag.getAttributes().getCol(attributeName);
+					line = tag.getAttributes().getLine(attributeName);
+					col = tag.getAttributes().getCol(attributeName);
 
 					optionalExpressionResult = parseExpression(expressionParser, context, attributeValue);
 					tag.getAttributes().removeAttribute(attributeName);
@@ -71,7 +73,7 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 			if (tag.hasLocation()) {
 				if (!e.hasLineAndCol()) {
 					if (attributeName != null) {
-						e.setLineAndCol(attributeLine, attributeCol);
+						e.setLineAndCol(line, col);
 					}
 				}
 			}
@@ -84,7 +86,7 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 		try {
 			structureHandler.replaceWith(render((IWebContext) context, tag, attributes), false);
 		} catch (IOException e) {
-			throw new TemplateProcessingException("Error during execution of processor '" + getClass().getName() + "'", attributeTemplateName, attributeLine, attributeCol, e);
+			throw new TemplateProcessingException("Error during execution of processor '" + getClass().getName() + "'", tag.getTemplateName(), line, col, e);
 		}
 	}
 

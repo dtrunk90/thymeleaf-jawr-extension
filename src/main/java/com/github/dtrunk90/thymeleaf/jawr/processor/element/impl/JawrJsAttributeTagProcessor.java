@@ -29,23 +29,25 @@ public class JawrJsAttributeTagProcessor extends AbstractJawrAttributeTagProcess
 	public static final Map<Attr, Object> OPTIONAL_ATTRIBUTES = new HashMap<Attr, Object>() {{
 		put(Attr.ASYNC, false);
 		put(Attr.DEFER, false);
+		put(Attr.TYPE, null);
 		put(Attr.USE_RANDOM_PARAM, true);
 	}};
 
-	public JawrJsAttributeTagProcessor(IProcessorDialect dialect) {
-		super(dialect, ELEMENT, ATTRIBUTE, PRECEDENCE, OPTIONAL_ATTRIBUTES);
+	public JawrJsAttributeTagProcessor() {
+		super(ELEMENT, ATTRIBUTE, PRECEDENCE, OPTIONAL_ATTRIBUTES);
 	}
 
 	@Override
 	protected String render(IWebContext context, IProcessableElementTag tag, Map<Attr, Object> attributes) throws IOException {
 		Boolean async = (Boolean) attributes.get(Attr.ASYNC);
 		Boolean defer = (Boolean) attributes.get(Attr.DEFER);
+		String type = (String) attributes.get(Attr.TYPE);
 		Boolean useRandomParam = (Boolean) attributes.get(Attr.USE_RANDOM_PARAM);
 
 		HttpServletRequest request = context.getRequest();
 
 		ResourceBundlesHandler bundler = (ResourceBundlesHandler) getHandlerFromContext(context, JawrConstant.JS_CONTEXT_ATTRIBUTE);
-		BundleRenderer renderer = RendererFactory.getJsBundleRenderer(bundler, useRandomParam, async, defer);
+		BundleRenderer renderer = RendererFactory.getJsBundleRenderer(bundler, type, useRandomParam, async, defer);
 		BundleRendererContext rendererContext = RendererRequestUtils.getBundleRendererContext(request, renderer);
 
 		StringWriter out = new StringWriter();
