@@ -20,19 +20,20 @@ To avoid IDE warnings you can add the namespace as follows:
 
 Javascript attributes:
 
-| Attribute name | Type    | Purpose                                                            | Default value |
-| :------------- | :------ | :----------------------------------------------------------------- | :------------ |
-| src            | String  | The bundle path.                                                   |               |
-| useRandomParam | Boolean | The flag indicating if we must use random parameter in debug mode. | true          |
-| async          | Boolean | The async flag.                                                    | false         |
-| defer          | Boolean | The defer flag.                                                    | false         |
+| Attribute name | Type    | Purpose                                                            | Default value   |
+| :------------- | :------ | :----------------------------------------------------------------- | :-------------- |
+| src            | String  | The bundle path.                                                   |                 |
+| useRandomParam | Boolean | The flag indicating if we must use random parameter in debug mode. | true            |
+| async          | Boolean | The async flag.                                                    | false           |
+| defer          | Boolean | The defer flag.                                                    | false           |
+| type           | String  | The type flag.                                                     | text/javascript |
 
 CSS attributes:
 
 | Attribute name   | Type    | Purpose                                                                             | Default value |
 | :--------------- | :------ | :---------------------------------------------------------------------------------- | :------------ |
 | href             | String  | The bundle path.                                                                    |               |
-| media            | String  | The media attribute of the stylesheet.                                              |               |
+| media            | String  | The media attribute of the stylesheet.                                              | screen        |
 | title            | String  | The title to use for the style.                                                     |               |
 | useRandomParam   | Boolean | The flag indicating if we must use random parameter in debug mode.                  | true          |
 | alternate        | Boolean | This flag is used to render link as an alternate style.                             | false         |
@@ -52,7 +53,7 @@ Usage examples
 
 Javascript bundle:
 ```html
-<script type="text/javascript" src="jquery-1.11.1.min.js" jawr:src="/lib.js"></script>
+<script type="text/javascript" src="jquery.min.js" jawr:src="/lib.js"></script>
 ```
 
 CSS bundle:

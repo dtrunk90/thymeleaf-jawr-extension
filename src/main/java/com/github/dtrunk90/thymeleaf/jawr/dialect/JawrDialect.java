@@ -18,6 +18,7 @@ import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.img.JawrImgElement
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrAsyncAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrDeferAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrJsElementSubstitutionAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrTypeAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared.JawrSrcAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared.JawrUseRandomParamAttrProcessor;
 
@@ -40,6 +41,7 @@ public class JawrDialect extends AbstractXHTMLEnabledDialect {
 				/* Javascript attributes */
 				new JawrAsyncAttrProcessor(),
 				new JawrDeferAttrProcessor(),
+				new JawrTypeAttrProcessor(),
 				new JawrJsElementSubstitutionAttrProcessor("script"),
 
 				/* CSS attributes */
