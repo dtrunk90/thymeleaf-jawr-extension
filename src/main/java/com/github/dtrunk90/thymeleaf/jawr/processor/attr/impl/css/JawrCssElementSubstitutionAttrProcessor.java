@@ -19,10 +19,13 @@ import org.thymeleaf.dom.Element;
 
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.AbstractJawrElementSubstitutionAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.Attr;
+import com.github.dtrunk90.thymeleaf.jawr.util.ContextUtils;
 
 public class JawrCssElementSubstitutionAttrProcessor extends AbstractJawrElementSubstitutionAttrProcessor {
-	public JawrCssElementSubstitutionAttrProcessor(String elementNameFilter) {
-		super(JawrHrefAttrProcessor.ATTR_NAME, elementNameFilter);
+	public static final String ELEMENT_NAME = "link";
+
+	public JawrCssElementSubstitutionAttrProcessor() {
+		super(JawrHrefAttrProcessor.ATTR_NAME, ELEMENT_NAME);
 	}
 
 	@Override
@@ -37,7 +40,7 @@ public class JawrCssElementSubstitutionAttrProcessor extends AbstractJawrElement
 		WebContext context = (WebContext) arguments.getContext();
 		HttpServletRequest request = context.getHttpServletRequest();
 
-		ResourceBundlesHandler bundler = (ResourceBundlesHandler) getHandlerFromContext(context, JawrConstant.CSS_CONTEXT_ATTRIBUTE);
+		ResourceBundlesHandler bundler = (ResourceBundlesHandler) ContextUtils.getHandlerFromContext(context.getServletContext(), JawrConstant.CSS_CONTEXT_ATTRIBUTE);
 		BundleRenderer renderer = RendererFactory.getCssBundleRenderer(bundler, useRandomParam, media, alternate, displayAlternateStyles, title);
 		BundleRendererContext rendererContext = RendererRequestUtils.getBundleRendererContext(request, renderer);
 

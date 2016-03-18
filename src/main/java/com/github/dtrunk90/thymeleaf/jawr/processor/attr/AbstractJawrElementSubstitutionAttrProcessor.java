@@ -46,14 +46,5 @@ public abstract class AbstractJawrElementSubstitutionAttrProcessor extends Abstr
 		return true;
 	}
 
-	protected Object getHandlerFromContext(WebContext context, String attributeName) {
-		Object attributeValue = context.getServletContext().getAttribute(attributeName);
-		if (attributeValue == null) {
-			throw new TemplateProcessingException("Handler \"" + attributeName + "\" not present in servlet context. Initialization of Jawr either failed or never occurred.");
-		}
-
-		return attributeValue;
-	}
-
 	protected abstract String render(Arguments arguments, Element element, Map<Attr, Object> attrMap) throws IOException;
 }
