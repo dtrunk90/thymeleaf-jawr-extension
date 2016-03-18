@@ -26,7 +26,7 @@ Javascript attributes:
 | useRandomParam | Boolean | The flag indicating if we must use random parameter in debug mode. | true            |
 | async          | Boolean | The async flag.                                                    | false           |
 | defer          | Boolean | The defer flag.                                                    | false           |
-| type           | String  | The type flag.                                                     | text/javascript |
+| type           | String  | The type attribute.                                                | text/javascript |
 
 CSS attributes:
 
@@ -39,12 +39,13 @@ CSS attributes:
 | alternate        | Boolean | This flag is used to render link as an alternate style.                             | false         |
 | displayAlternate | Boolean | This flag is used to render the skin variants of the CSS bundle as alternate style. | false         |
 
-Image attributes:
+Expression object `#jawr`
+--------------------------
 
-| Attribute name   | Type    | Purpose                                                                             | Default value |
-| :--------------- | :------ | :---------------------------------------------------------------------------------- | :------------ |
-| src              | String  | The image path.                                                                     |               |
-| base64           | Boolean | This flag is used to generate base64 encoded image.                                 | false         |
+```java
+${#jawr.imagePath(String src)}						// base64 defaults to false
+${#jawr.imagePath(String src, boolean base64)}
+```
 
 It's important to note that Jawr will generate the base64 encoded image for all browsers except IE6 and IE7, which doesn't handle base64 encoded images.
 
@@ -63,12 +64,12 @@ CSS bundle:
 
 Image:
 ```html
-<img src="../resources/img/dummy.png" alt="" jawr:src="/resources/img/dummy.png" />
+<img src="../resources/img/dummy.png" alt="" th:src="${#jawr.imagePath('/resources/img/dummy.png')}" />
 ```
 
 Image input:
 ```html
-<input type="image" src="../resources/img/dummy.png" jawr:src="/resources/img/dummy.png" />
+<input type="image" src="../resources/img/dummy.png" th:src="${#jawr.imagePath('/resources/img/dummy.png')}" />
 ```
 
 You can use expressions as well:

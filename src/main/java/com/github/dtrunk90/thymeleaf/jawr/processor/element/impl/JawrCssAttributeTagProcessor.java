@@ -15,10 +15,10 @@ import net.jawr.web.resource.bundle.renderer.RendererFactory;
 import net.jawr.web.servlet.RendererRequestUtils;
 
 import org.thymeleaf.context.IWebContext;
-import org.thymeleaf.dialect.IProcessorDialect;
 import org.thymeleaf.model.IProcessableElementTag;
 
 import com.github.dtrunk90.thymeleaf.jawr.processor.element.AbstractJawrAttributeTagProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.util.ContextUtils;
 
 public class JawrCssAttributeTagProcessor extends AbstractJawrAttributeTagProcessor {
 	public static final String ELEMENT = "link";
@@ -49,7 +49,7 @@ public class JawrCssAttributeTagProcessor extends AbstractJawrAttributeTagProces
 
 		HttpServletRequest request = context.getRequest();
 
-		ResourceBundlesHandler bundler = (ResourceBundlesHandler) getHandlerFromContext(context, JawrConstant.CSS_CONTEXT_ATTRIBUTE);
+		ResourceBundlesHandler bundler = (ResourceBundlesHandler) ContextUtils.getHandlerFromContext(context, JawrConstant.CSS_CONTEXT_ATTRIBUTE);
 		BundleRenderer renderer = RendererFactory.getCssBundleRenderer(bundler, useRandomParam, media, alternate, displayAlternateStyles, title);
 		BundleRendererContext rendererContext = RendererRequestUtils.getBundleRendererContext(request, renderer);
 

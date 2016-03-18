@@ -1,8 +1,8 @@
 %INPUT
 <!DOCTYPE html>
-<html xmlns:jawr="http://jawr.java.net">
+<html xmlns:th="http://www.thymeleaf.org">
 	<body>
-		<input type="image" src="test.png" jawr:src="test.png" jawr:base64="true" />
+		<input type="image" src="test.png" th:src="${#jawr.imagePath('test.png', true)}" />
 	</body>
 </html>
 # ------------------------------------------
@@ -10,6 +10,6 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		<input type="image" src="null" />
+		<input type="image" src="" />
 	</body>
 </html>
