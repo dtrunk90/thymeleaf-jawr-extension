@@ -40,7 +40,7 @@ CSS attributes:
 
 Expression object `#jawr`
 --------------------------
-<br />
+
 ```java
 ${#jawr.imagePath(String src)}						// base64 defaults to false
 ${#jawr.imagePath(String src, boolean base64)}
