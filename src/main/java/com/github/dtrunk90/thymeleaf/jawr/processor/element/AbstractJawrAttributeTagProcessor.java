@@ -1,9 +1,14 @@
 package com.github.dtrunk90.thymeleaf.jawr.processor.element;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
+
+import net.jawr.web.resource.bundle.handler.ResourceBundlesHandler;
+import net.jawr.web.resource.bundle.renderer.BundleRenderer;
+import net.jawr.web.resource.bundle.renderer.BundleRendererContext;
+import net.jawr.web.servlet.RendererRequestUtils;
 
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.context.IWebContext;
@@ -27,13 +32,10 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 		ALTERNATE, ASYNC, BASE64, DEFER, DISPLAY_ALTERNATE, HREF, MEDIA, SRC, TITLE, TYPE, USE_RANDOM_PARAM
 	}
 
-	private final Map<Attr, Object> optionalAttributes;
 	private final Attr attribute;
 
-	protected AbstractJawrAttributeTagProcessor(String elementName, Attr attribute, int precedence, Map<Attr, Object> optionalAttributes) {
+	protected AbstractJawrAttributeTagProcessor(String elementName, Attr attribute, int precedence) {
 		super(TemplateMode.HTML, JawrDialect.PREFIX, elementName, false, attribute.toString(), true, precedence, false);
-
-		this.optionalAttributes = Collections.unmodifiableMap(optionalAttributes);
 		this.attribute = attribute;
 	}
 
@@ -53,7 +55,7 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 		int col = 0;
 
 		try {
-			for (Map.Entry<Attr, Object> optionalAttribute : optionalAttributes.entrySet()) {
+			for (Map.Entry<Attr, Object> optionalAttribute : getOptionalAttributes().entrySet()) {
 				Object optionalExpressionResult = optionalAttribute.getValue();
 
 				AttributeDefinition optionalAttributeDefinition = tag.getAttributes().getAttributeDefinition(JawrDialect.PREFIX, optionalAttribute.getKey().toString());
@@ -69,7 +71,7 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 
 				attributes.put(optionalAttribute.getKey(), optionalExpressionResult);
 			}
-		} catch (final TemplateProcessingException e) {
+		} catch (TemplateProcessingException e) {
 			if (tag.hasLocation()) {
 				if (!e.hasLineAndCol()) {
 					if (attributeName != null) {
@@ -84,7 +86,22 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 		attributes.put(attribute, expressionResult);
 
 		try {
-			structureHandler.replaceWith(render((IWebContext) context, tag, attributes), false);
+			IWebContext webContext = (IWebContext) context;
+
+			String contextAttributeName = getContextAttributeName();
+			ResourceBundlesHandler rsHandler = (ResourceBundlesHandler) webContext.getServletContext().getAttribute(contextAttributeName);
+			if (rsHandler == null) {
+				throw new TemplateProcessingException("Handler \"" + contextAttributeName + "\" not present in servlet context. Initialization of Jawr either failed or never occurred.");
+			}
+
+			BundleRenderer renderer = createRenderer(rsHandler, attributes);
+			BundleRendererContext rendererContext = RendererRequestUtils.getBundleRendererContext(webContext.getRequest(), renderer);
+
+			StringWriter out = new StringWriter();
+			renderer.renderBundleLinks((String) attributes.get(attribute), rendererContext, out);
+			out.flush();
+
+			structureHandler.replaceWith(out.toString(), false);
 		} catch (IOException e) {
 			throw new TemplateProcessingException("Error during execution of processor '" + getClass().getName() + "'", tag.getTemplateName(), line, col, e);
 		}
@@ -107,5 +124,7 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 		return result;
 	}
 
-	protected abstract String render(IWebContext context, IProcessableElementTag tag, Map<Attr, Object> attributes) throws IOException;
+	protected abstract BundleRenderer createRenderer(ResourceBundlesHandler rsHandler, Map<Attr, Object> attributes);
+	protected abstract String getContextAttributeName();
+	protected abstract Map<Attr, Object> getOptionalAttributes();
 }
