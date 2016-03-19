@@ -21,7 +21,7 @@ import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrTitleAttrP
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrAsyncAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrDeferAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrJsElementSubstitutionAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared.JawrSrcAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrSrcAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared.JawrUseRandomParamAttrProcessor;
 
 public class JawrDialect extends AbstractXHTMLEnabledDialect implements IExpressionEnhancingDialect {

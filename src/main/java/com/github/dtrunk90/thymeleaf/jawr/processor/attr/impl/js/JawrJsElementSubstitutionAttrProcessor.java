@@ -19,7 +19,6 @@ import org.thymeleaf.dom.Element;
 
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.AbstractJawrElementSubstitutionAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.processor.attr.Attr;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared.JawrSrcAttrProcessor;
 import com.github.dtrunk90.thymeleaf.jawr.util.ContextUtils;
 
 public class JawrJsElementSubstitutionAttrProcessor extends AbstractJawrElementSubstitutionAttrProcessor {

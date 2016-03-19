@@ -1,4 +1,4 @@
-package com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared;
+package com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js;
 
 import org.thymeleaf.Arguments;
 import org.thymeleaf.dom.Element;
