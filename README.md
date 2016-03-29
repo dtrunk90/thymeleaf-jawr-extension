@@ -26,7 +26,6 @@ Javascript attributes:
 | useRandomParam | Boolean | The flag indicating if we must use random parameter in debug mode. | true            |
 | async          | Boolean | The async flag.                                                    | false           |
 | defer          | Boolean | The defer flag.                                                    | false           |
-| type           | String  | The type attribute.                                                | text/javascript |
 
 CSS attributes:
 

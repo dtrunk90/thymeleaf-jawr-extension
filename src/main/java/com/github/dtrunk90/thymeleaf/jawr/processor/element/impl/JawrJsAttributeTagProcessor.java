@@ -23,7 +23,7 @@ public class JawrJsAttributeTagProcessor extends AbstractJawrAttributeTagProcess
 	@Override
 	protected BundleRenderer createRenderer(ResourceBundlesHandler rsHandler, Map<Attr, Object> attributes) {
 		return RendererFactory.getJsBundleRenderer(rsHandler,
-				(String) attributes.get(Attr.TYPE),
+				//(String) attributes.get(Attr.TYPE),
 				(Boolean) attributes.get(Attr.USE_RANDOM_PARAM),
 				(Boolean) attributes.get(Attr.ASYNC),
 				(Boolean) attributes.get(Attr.DEFER));
