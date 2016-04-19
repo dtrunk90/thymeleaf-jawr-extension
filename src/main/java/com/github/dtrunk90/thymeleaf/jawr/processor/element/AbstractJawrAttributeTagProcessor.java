@@ -12,10 +12,10 @@ import net.jawr.web.servlet.RendererRequestUtils;
 
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.context.IWebContext;
-import org.thymeleaf.engine.AttributeDefinition;
 import org.thymeleaf.engine.AttributeName;
 import org.thymeleaf.exceptions.ConfigurationException;
 import org.thymeleaf.exceptions.TemplateProcessingException;
+import org.thymeleaf.model.IAttribute;
 import org.thymeleaf.model.IProcessableElementTag;
 import org.thymeleaf.processor.element.AbstractAttributeTagProcessor;
 import org.thymeleaf.processor.element.IElementTagStructureHandler;
@@ -46,30 +46,33 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 		}
 
 		Map<Attr, Object> attributes = new HashMap<Attr, Object>();
+		Map<String, String> attributeMap = tag.getAttributeMap();
 
 		IStandardExpressionParser expressionParser = StandardExpressions.getExpressionParser(context.getConfiguration());
 		Object expressionResult = parseExpression(expressionParser, context, attributeValue);
-		tag.getAttributes().removeAttribute(attributeName);
+		attributeMap.remove(attributeName);
 
 		int line = 0;
 		int col = 0;
 
 		try {
 			for (Map.Entry<Attr, Object> optionalAttribute : getOptionalAttributes().entrySet()) {
+				Attr attr = optionalAttribute.getKey();
+				IAttribute attribute = tag.getAttribute(JawrDialect.PREFIX, optionalAttribute.getKey().toString());
 				Object optionalExpressionResult = optionalAttribute.getValue();
 
-				AttributeDefinition optionalAttributeDefinition = tag.getAttributes().getAttributeDefinition(JawrDialect.PREFIX, optionalAttribute.getKey().toString());
-				if (optionalAttributeDefinition != null) {
-					attributeName = optionalAttributeDefinition.getAttributeName();
-					attributeValue = EscapedAttributeUtils.unescapeAttribute(context.getTemplateMode(), tag.getAttributes().getValue(attributeName));
-					line = tag.getAttributes().getLine(attributeName);
-					col = tag.getAttributes().getCol(attributeName);
-
+				if (attribute != null) {
+					attributeName = attribute.getDefinition().getAttributeName();
+					attributeValue = EscapedAttributeUtils.unescapeAttribute(context.getTemplateMode(), attribute.getValue());
 					optionalExpressionResult = parseExpression(expressionParser, context, attributeValue);
-					tag.getAttributes().removeAttribute(attributeName);
+
+					line = attribute.getLine();
+					col = attribute.getCol();
+
+					attributeMap.remove(attributeName);
 				}
 
-				attributes.put(optionalAttribute.getKey(), optionalExpressionResult);
+				attributes.put(attr, optionalExpressionResult);
 			}
 		} catch (TemplateProcessingException e) {
 			if (tag.hasLocation()) {
