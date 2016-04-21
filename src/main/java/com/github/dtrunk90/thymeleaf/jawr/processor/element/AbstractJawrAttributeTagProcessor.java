@@ -46,11 +46,10 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 		}
 
 		Map<Attr, Object> attributes = new HashMap<Attr, Object>();
-		Map<String, String> attributeMap = tag.getAttributeMap();
 
 		IStandardExpressionParser expressionParser = StandardExpressions.getExpressionParser(context.getConfiguration());
 		Object expressionResult = parseExpression(expressionParser, context, attributeValue);
-		attributeMap.remove(attributeName);
+		structureHandler.removeAttribute(attributeName);
 
 		int line = 0;
 		int col = 0;
@@ -69,7 +68,7 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 					line = attribute.getLine();
 					col = attribute.getCol();
 
-					attributeMap.remove(attributeName);
+					structureHandler.removeAttribute(attributeName);
 				}
 
 				attributes.put(attr, optionalExpressionResult);
