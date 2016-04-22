@@ -75,10 +75,11 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 			}
 		} catch (TemplateProcessingException e) {
 			if (tag.hasLocation()) {
+				if (!e.hasTemplateName()) {
+					e.setTemplateName(tag.getTemplateName());
+				}
 				if (!e.hasLineAndCol()) {
-					if (attributeName != null) {
-						e.setLineAndCol(line, col);
-					}
+					e.setLineAndCol(line, col);
 				}
 			}
 
@@ -105,7 +106,7 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 
 			structureHandler.replaceWith(out.toString(), false);
 		} catch (IOException e) {
-			throw new TemplateProcessingException("Error during execution of processor '" + getClass().getName() + "'", tag.getTemplateName(), line, col, e);
+			throw new TemplateProcessingException("Error during execution of processor '" + getClass().getName() + "'", tag.getTemplateName(), tag.getLine(), tag.getCol(), e);
 		}
 	}
 
