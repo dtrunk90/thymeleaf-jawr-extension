@@ -17,12 +17,13 @@ import com.github.dtrunk90.thymeleaf.jawr.processor.element.impl.JawrCssAttribut
 import com.github.dtrunk90.thymeleaf.jawr.processor.element.impl.JawrJsAttributeTagProcessor;
 
 public class JawrDialect extends AbstractProcessorDialect implements IExpressionObjectDialect {
-	public static final String NAME = "Jawr";
+	public static final String NAMESPACE = "http://jawr.java.net";
 	public static final String PREFIX = "jawr";
+
 	public static final int PROCESSOR_PRECEDENCE = 2000;
 
 	public JawrDialect() {
-		super(NAME, PREFIX, PROCESSOR_PRECEDENCE);
+		super(NAMESPACE, PREFIX, PROCESSOR_PRECEDENCE);
 	}
 
 	@Override
@@ -38,6 +39,6 @@ public class JawrDialect extends AbstractProcessorDialect implements IExpression
 						new JawrCssAttributeTagProcessor(),
 						new JawrJsAttributeTagProcessor()
 				}
-		)));
+				)));
 	}
 }
