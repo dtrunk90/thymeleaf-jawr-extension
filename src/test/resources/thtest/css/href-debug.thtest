@@ -1,0 +1,23 @@
+%JAWR
+jawr.debug.on=true
+jawr.css.bundle.test.id=/test.css
+jawr.css.bundle.test.mappings=
+# ------------------------------------------
+%INPUT
+<!DOCTYPE html>
+<html xmlns:jawr="http://jawr.java.net">
+	<head>
+		<link rel="stylesheet" type="text/css" href="test.css" jawr:href="/test.css" />
+	</head>
+</html>
+# ------------------------------------------
+%OUTPUT 
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript">/* Start adding global members. */</script>
+		<script type="text/javascript">/* Finished adding global members. */</script>
+		<script type="text/javascript">/* Start adding members resolved by '/test.css'. Bundle id is: '/test.css' */</script>
+		<script type="text/javascript">/* Finished adding members resolved by /test.css */</script>
+	</head>
+</html>

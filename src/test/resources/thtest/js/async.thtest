@@ -1,0 +1,19 @@
+%JAWR
+jawr.js.bundle.test.id=/test.js
+jawr.js.bundle.test.mappings=
+# ------------------------------------------
+%INPUT
+<!DOCTYPE html>
+<html xmlns:jawr="http://jawr.java.net">
+	<head>
+		<script type="text/javascript" src="test.js" jawr:src="/test.js" jawr:async="true"></script>
+	</head>
+</html>
+# ------------------------------------------
+%OUTPUT 
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="/res/0/test.js" async="async"></script>
+	</head>
+</html>

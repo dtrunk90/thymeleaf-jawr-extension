@@ -5,7 +5,7 @@ Thymeleaf Jawr Extension
 <dependency>
 	<groupId>com.github.dtrunk90</groupId>
 	<artifactId>thymeleaf-jawr-extension</artifactId>
-	<version>1.2.0</version>
+	<version>2.0.0</version>
 </dependency>
 ```
 

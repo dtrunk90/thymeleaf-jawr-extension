@@ -1,63 +1,44 @@
 package com.github.dtrunk90.thymeleaf.jawr.dialect;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.thymeleaf.context.IProcessingContext;
-import org.thymeleaf.dialect.AbstractXHTMLEnabledDialect;
-import org.thymeleaf.dialect.IExpressionEnhancingDialect;
+import org.thymeleaf.dialect.AbstractProcessorDialect;
+import org.thymeleaf.dialect.IExpressionObjectDialect;
+import org.thymeleaf.expression.IExpressionObjectFactory;
 import org.thymeleaf.processor.IProcessor;
+import org.thymeleaf.standard.processor.StandardXmlNsTagProcessor;
+import org.thymeleaf.templatemode.TemplateMode;
 
-import com.github.dtrunk90.thymeleaf.jawr.expression.Jawr;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrAlternateAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrCssElementSubstitutionAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrDisplayAlternateAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrHrefAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrMediaAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.css.JawrTitleAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrAsyncAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrDeferAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrJsElementSubstitutionAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.js.JawrSrcAttrProcessor;
-import com.github.dtrunk90.thymeleaf.jawr.processor.attr.impl.shared.JawrUseRandomParamAttrProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.expression.JawrExpressionObjectFactory;
+import com.github.dtrunk90.thymeleaf.jawr.processor.element.impl.JawrCssAttributeTagProcessor;
+import com.github.dtrunk90.thymeleaf.jawr.processor.element.impl.JawrJsAttributeTagProcessor;
 
-public class JawrDialect extends AbstractXHTMLEnabledDialect implements IExpressionEnhancingDialect {
-	public static final String REQUEST_ATTR_NAME = JawrDialect.class.getName();
+public class JawrDialect extends AbstractProcessorDialect implements IExpressionObjectDialect {
+	public static final String NAMESPACE = "http://jawr.java.net";
 	public static final String PREFIX = "jawr";
 
-	@Override
-	public Map<String, Object> getAdditionalExpressionObjects(IProcessingContext processingContext) {
-		Map<String, Object> expressionObjects = new HashMap<String, Object>();
-		expressionObjects.put(PREFIX, new Jawr(processingContext.getContext()));
-		return expressionObjects;
+	public static final int PROCESSOR_PRECEDENCE = 2000;
+
+	public JawrDialect() {
+		super(NAMESPACE, PREFIX, PROCESSOR_PRECEDENCE);
 	}
 
 	@Override
-	public String getPrefix() {
-		return PREFIX;
+	public IExpressionObjectFactory getExpressionObjectFactory() {
+		return new JawrExpressionObjectFactory();
 	}
 
 	@Override
-	public Set<IProcessor> getProcessors() {
-		return new HashSet<IProcessor>(Arrays.asList(
-				/* Shared attributes */
-				new JawrSrcAttrProcessor(),
-				new JawrUseRandomParamAttrProcessor(),
-
-				/* Javascript attributes */
-				new JawrAsyncAttrProcessor(),
-				new JawrDeferAttrProcessor(),
-				new JawrJsElementSubstitutionAttrProcessor(),
-
-				/* CSS attributes */
-				new JawrAlternateAttrProcessor(),
-				new JawrDisplayAlternateAttrProcessor(),
-				new JawrHrefAttrProcessor(),
-				new JawrMediaAttrProcessor(),
-				new JawrTitleAttrProcessor(),
-				new JawrCssElementSubstitutionAttrProcessor()));
+	public Set<IProcessor> getProcessors(String dialectPrefix) {
+		return Collections.unmodifiableSet(new LinkedHashSet<IProcessor>(Arrays.asList(
+				new IProcessor[] {
+						new StandardXmlNsTagProcessor(TemplateMode.HTML, dialectPrefix),
+						new JawrCssAttributeTagProcessor(),
+						new JawrJsAttributeTagProcessor()
+				}
+				)));
 	}
 }

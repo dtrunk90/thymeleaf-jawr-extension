@@ -1,0 +1,23 @@
+%JAWR
+jawr.debug.on=true
+jawr.js.bundle.test.id=/test.js
+jawr.js.bundle.test.mappings=
+# ------------------------------------------
+%INPUT
+<!DOCTYPE html>
+<html xmlns:jawr="http://jawr.java.net">
+	<head>
+		<script type="text/javascript" src="test.js" jawr:src="/test.js"></script>
+	</head>
+</html>
+# ------------------------------------------
+%OUTPUT 
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript">/* Start adding global members. */</script>
+		<script type="text/javascript">/* Finished adding global members. */</script>
+		<script type="text/javascript">/* Start adding members resolved by '/test.js'. Bundle id is: '/test.js' */</script>
+		<script type="text/javascript">/* Finished adding members resolved by /test.js */</script>
+	</head>
+</html>

@@ -1,0 +1,15 @@
+%INPUT
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<body>
+		<img src="test.png" alt="" th:src="${#jawr.imagePath('test.png', true)}" />
+	</body>
+</html>
+# ------------------------------------------
+%OUTPUT 
+<!DOCTYPE html>
+<html>
+	<body>
+		<img src="" alt="" />
+	</body>
+</html>
