@@ -15,9 +15,9 @@
 		<jsp.version>2.0</jsp.version>
 		<junit.version>4.12</junit.version>
 		<servlet.version>3.1.0</servlet.version>
-		<spring.version>4.2.4.RELEASE</spring.version>
-		<spring-boot.version>1.3.2.RELEASE</spring-boot.version>
-		<thymeleaf.version>3.0.0.BETA03</thymeleaf.version>
+		<spring.version>4.2.6.RELEASE</spring.version>
+		<spring-boot.version>1.3.4.RELEASE</spring-boot.version>
+		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
 	</properties>
 
 	<licenses>

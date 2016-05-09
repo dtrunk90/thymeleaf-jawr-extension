@@ -61,7 +61,7 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 				Object optionalExpressionResult = optionalAttribute.getValue();
 
 				if (attribute != null) {
-					attributeName = attribute.getDefinition().getAttributeName();
+					attributeName = attribute.getAttributeDefinition().getAttributeName();
 					attributeValue = EscapedAttributeUtils.unescapeAttribute(context.getTemplateMode(), attribute.getValue());
 					optionalExpressionResult = parseExpression(expressionParser, context, attributeValue);
 
