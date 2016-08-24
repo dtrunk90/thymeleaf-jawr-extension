@@ -23,10 +23,11 @@ public class JawrJsAttributeTagProcessor extends AbstractJawrAttributeTagProcess
 	@Override
 	protected BundleRenderer createRenderer(ResourceBundlesHandler rsHandler, Map<Attr, Object> attributes) {
 		return RendererFactory.getJsBundleRenderer(rsHandler,
-				//(String) attributes.get(Attr.TYPE),
+				(String) attributes.get(Attr.TYPE),
 				(Boolean) attributes.get(Attr.USE_RANDOM_PARAM),
 				(Boolean) attributes.get(Attr.ASYNC),
-				(Boolean) attributes.get(Attr.DEFER));
+				(Boolean) attributes.get(Attr.DEFER),
+				(String) attributes.get(Attr.CROSSORIGIN));
 	}
 
 	@Override
@@ -39,6 +40,7 @@ public class JawrJsAttributeTagProcessor extends AbstractJawrAttributeTagProcess
 	protected Map<Attr, Object> getOptionalAttributes() {
 		return Collections.unmodifiableMap(new HashMap<Attr, Object>() {{
 			put(Attr.ASYNC, false);
+			put(Attr.CROSSORIGIN, null);
 			put(Attr.DEFER, false);
 			put(Attr.TYPE, null);
 			put(Attr.USE_RANDOM_PARAM, true);

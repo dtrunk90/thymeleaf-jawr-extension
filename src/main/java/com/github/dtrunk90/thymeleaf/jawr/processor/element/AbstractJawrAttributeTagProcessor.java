@@ -29,7 +29,7 @@ import com.github.dtrunk90.thymeleaf.jawr.dialect.JawrDialect;
 
 public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttributeTagProcessor {
 	public static enum Attr {
-		ALTERNATE, ASYNC, BASE64, DEFER, DISPLAY_ALTERNATE, HREF, MEDIA, SRC, TITLE, TYPE, USE_RANDOM_PARAM
+		ALTERNATE, ASYNC, BASE64, CROSSORIGIN, DEFER, DISPLAY_ALTERNATE, HREF, MEDIA, SRC, TITLE, TYPE, USE_RANDOM_PARAM
 	}
 
 	private final Attr attribute;
