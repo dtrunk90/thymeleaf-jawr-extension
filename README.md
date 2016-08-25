@@ -5,7 +5,7 @@ Thymeleaf Jawr Extension
 <dependency>
 	<groupId>com.github.dtrunk90</groupId>
 	<artifactId>thymeleaf-jawr-extension</artifactId>
-	<version>1.2.0</version>
+	<version>1.2.1</version>
 </dependency>
 ```
 
@@ -26,6 +26,8 @@ Javascript attributes:
 | useRandomParam | Boolean | The flag indicating if we must use random parameter in debug mode. | true            |
 | async          | Boolean | The async flag.                                                    | false           |
 | defer          | Boolean | The defer flag.                                                    | false           |
+| type           | String  | The type attribute.                                                | text/javascript |
+| crossorigin    | String  | The crossorigin attribute.                                         |                 |
 
 CSS attributes:
 
