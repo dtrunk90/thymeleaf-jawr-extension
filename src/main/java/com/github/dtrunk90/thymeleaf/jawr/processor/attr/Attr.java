@@ -5,7 +5,7 @@ public enum Attr {
 	USE_RANDOM_PARAM,
 
 	/* Javascript attributes */
-	ASYNC, DEFER, SRC,
+	ASYNC, CROSSORIGIN, DEFER, SRC, TYPE,
 
 	/* CSS attributes */
 	ALTERNATE, DISPLAY_ALTERNATE, HREF, MEDIA, TITLE,
