@@ -4,12 +4,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.github.dtrunk90.thymeleaf.jawr.processor.element.AbstractJawrAttributeTagProcessor;
+
 import net.jawr.web.JawrConstant;
 import net.jawr.web.resource.bundle.handler.ResourceBundlesHandler;
 import net.jawr.web.resource.bundle.renderer.BundleRenderer;
 import net.jawr.web.resource.bundle.renderer.RendererFactory;
-
-import com.github.dtrunk90.thymeleaf.jawr.processor.element.AbstractJawrAttributeTagProcessor;
 
 public class JawrJsAttributeTagProcessor extends AbstractJawrAttributeTagProcessor {
 	public static final String ELEMENT = "script";
@@ -39,11 +39,11 @@ public class JawrJsAttributeTagProcessor extends AbstractJawrAttributeTagProcess
 	@SuppressWarnings("serial")
 	protected Map<Attr, Object> getOptionalAttributes() {
 		return Collections.unmodifiableMap(new HashMap<Attr, Object>() {{
-			put(Attr.ASYNC, false);
+			put(Attr.ASYNC, null);
 			put(Attr.CROSSORIGIN, null);
-			put(Attr.DEFER, false);
+			put(Attr.DEFER, null);
 			put(Attr.TYPE, null);
-			put(Attr.USE_RANDOM_PARAM, true);
+			put(Attr.USE_RANDOM_PARAM, null);
 		}});
 	}
 }

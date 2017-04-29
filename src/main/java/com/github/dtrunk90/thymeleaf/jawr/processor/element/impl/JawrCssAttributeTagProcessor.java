@@ -4,12 +4,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.github.dtrunk90.thymeleaf.jawr.processor.element.AbstractJawrAttributeTagProcessor;
+
 import net.jawr.web.JawrConstant;
 import net.jawr.web.resource.bundle.handler.ResourceBundlesHandler;
 import net.jawr.web.resource.bundle.renderer.BundleRenderer;
 import net.jawr.web.resource.bundle.renderer.RendererFactory;
-
-import com.github.dtrunk90.thymeleaf.jawr.processor.element.AbstractJawrAttributeTagProcessor;
 
 public class JawrCssAttributeTagProcessor extends AbstractJawrAttributeTagProcessor {
 	public static final String ELEMENT = "link";
@@ -43,7 +43,7 @@ public class JawrCssAttributeTagProcessor extends AbstractJawrAttributeTagProces
 			put(Attr.DISPLAY_ALTERNATE, false);
 			put(Attr.MEDIA, null);
 			put(Attr.TITLE, null);
-			put(Attr.USE_RANDOM_PARAM, true);
+			put(Attr.USE_RANDOM_PARAM, null);
 		}});
 	}
 }
