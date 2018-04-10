@@ -15,9 +15,10 @@
 		<jsp.version>2.2</jsp.version>
 		<junit.version>4.12</junit.version>
 		<servlet.version>3.1.0</servlet.version>
-		<spring.version>4.3.2.RELEASE</spring.version>
-		<spring-boot.version>1.4.0.RELEASE</spring-boot.version>
-		<thymeleaf.version>3.0.1.RELEASE</thymeleaf.version>
+		<spring.version>5.0.5.RELEASE</spring.version>
+		<spring-boot.version>2.0.1.RELEASE</spring-boot.version>
+		<thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
+		<thymeleaf-testing.version>3.0.3.RELEASE</thymeleaf-testing.version>
 	</properties>
 
 	<licenses>
@@ -111,14 +112,14 @@
 		</dependency>
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf-spring4</artifactId>
+			<artifactId>thymeleaf-spring5</artifactId>
 			<version>${thymeleaf.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf-testing</artifactId>
-			<version>${thymeleaf.version}</version>
+			<version>${thymeleaf-testing.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

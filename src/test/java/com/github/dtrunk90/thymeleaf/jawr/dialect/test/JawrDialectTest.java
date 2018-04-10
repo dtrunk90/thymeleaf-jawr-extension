@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import net.jawr.web.JawrConstant;
-import net.jawr.web.servlet.JawrSpringController;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -27,13 +24,16 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
-import org.thymeleaf.spring4.dialect.SpringStandardDialect;
+import org.thymeleaf.spring5.dialect.SpringStandardDialect;
 import org.thymeleaf.testing.templateengine.context.IProcessingContextBuilder;
 import org.thymeleaf.testing.templateengine.engine.TestExecutor;
 
 import com.github.dtrunk90.thymeleaf.jawr.dialect.JawrDialect;
 import com.github.dtrunk90.thymeleaf.jawr.dialect.test.context.JawrDialectProcessingContextBuilder;
 import com.github.dtrunk90.thymeleaf.jawr.dialect.test.resolver.JawrDialectTestableResolver;
+
+import net.jawr.web.JawrConstant;
+import net.jawr.web.servlet.JawrSpringController;
 
 @WebAppConfiguration
 @ContextConfiguration

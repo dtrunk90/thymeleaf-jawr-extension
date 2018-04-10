@@ -14,10 +14,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.jawr.web.JawrConstant;
-import net.jawr.web.servlet.JawrSpringController;
-import ognl.Ognl;
-
 import org.apache.commons.lang3.LocaleUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.convert.ConversionService;
@@ -31,8 +27,8 @@ import org.springframework.web.servlet.support.RequestContext;
 import org.springframework.web.servlet.view.AbstractTemplateView;
 import org.thymeleaf.context.IContext;
 import org.thymeleaf.context.WebContext;
-import org.thymeleaf.spring4.expression.ThymeleafEvaluationContext;
-import org.thymeleaf.spring4.naming.SpringContextVariableNames;
+import org.thymeleaf.spring5.expression.ThymeleafEvaluationContext;
+import org.thymeleaf.spring5.naming.SpringContextVariableNames;
 import org.thymeleaf.testing.templateengine.context.IProcessingContextBuilder;
 import org.thymeleaf.testing.templateengine.context.ITestContext;
 import org.thymeleaf.testing.templateengine.context.ITestContextExpression;
@@ -42,6 +38,10 @@ import org.thymeleaf.testing.templateengine.testable.ITest;
 import org.thymeleaf.util.Validate;
 
 import com.github.dtrunk90.thymeleaf.jawr.dialect.test.resolver.JawrDialectTestableResolver.JawrTest;
+
+import net.jawr.web.JawrConstant;
+import net.jawr.web.servlet.JawrSpringController;
+import ognl.Ognl;
 
 // see https://github.com/thymeleaf/thymeleaf-testing/issues/12
 public class JawrDialectProcessingContextBuilder implements IProcessingContextBuilder {
