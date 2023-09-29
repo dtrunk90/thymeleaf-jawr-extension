@@ -10,6 +10,7 @@ import net.jawr.web.resource.bundle.renderer.BundleRenderer;
 import net.jawr.web.resource.bundle.renderer.BundleRendererContext;
 import net.jawr.web.servlet.RendererRequestUtils;
 
+import org.thymeleaf.context.Contexts;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.engine.AttributeName;
@@ -26,6 +27,9 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.util.EscapedAttributeUtils;
 
 import com.github.dtrunk90.thymeleaf.jawr.dialect.JawrDialect;
+import org.thymeleaf.web.servlet.IServletWebExchange;
+
+import javax.servlet.http.HttpServletRequest;
 
 public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttributeTagProcessor {
 	public static enum Attr {
@@ -89,16 +93,16 @@ public abstract class AbstractJawrAttributeTagProcessor extends AbstractAttribut
 		attributes.put(attribute, expressionResult);
 
 		try {
-			IWebContext webContext = (IWebContext) context;
+			IServletWebExchange webExchange = Contexts.getServletWebExchange(context);
 
 			String contextAttributeName = getContextAttributeName();
-			ResourceBundlesHandler rsHandler = (ResourceBundlesHandler) webContext.getServletContext().getAttribute(contextAttributeName);
+			ResourceBundlesHandler rsHandler = (ResourceBundlesHandler) webExchange.getApplication().getAttributeValue(contextAttributeName);
 			if (rsHandler == null) {
 				throw new TemplateProcessingException("Handler \"" + contextAttributeName + "\" not present in servlet context. Initialization of Jawr either failed or never occurred.");
 			}
 
 			BundleRenderer renderer = createRenderer(rsHandler, attributes);
-			BundleRendererContext rendererContext = RendererRequestUtils.getBundleRendererContext(webContext.getRequest(), renderer);
+			BundleRendererContext rendererContext = RendererRequestUtils.getBundleRendererContext((HttpServletRequest) webExchange.getNativeRequestObject(), renderer);
 
 			StringWriter out = new StringWriter();
 			renderer.renderBundleLinks((String) attributes.get(attribute), rendererContext, out);
